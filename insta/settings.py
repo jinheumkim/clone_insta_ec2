@@ -83,7 +83,7 @@ DATABASES = {
     'default' : {
         'ENGINE' :'mydjango.db.backends.mysql',
         'HOST' : '43.201.73.165',
-        'NAME' : 'clone_insta',
+        'NAME' : 'clone_insta_db',
         'USER' : 'root',
         'PASSWORD' : 'password',
         'PORT' : '3306',
