@@ -82,10 +82,10 @@ DATABASES = {
     
     'default' : {
         'ENGINE' :'mydjango.db.backends.mysql',
-        'HOST' : '43.201.73.165',
-        'NAME' : 'clone_insta_db',
-        'USER' : 'root',
-        'PASSWORD' : 'password',
+        'HOST' : '',
+        'NAME' : '',
+        'USER' : '',
+        'PASSWORD' : '',
         'PORT' : '3306',
         'OPTIONS' : {'charset' : 'utf8mb4'}
     }
