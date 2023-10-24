@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 DATABASES = {
     
     'default' : {
-        'ENGINE' :'mydjango.db.backends.mysql',
-        'HOST' : '',
-        'NAME' : '',
-        'USER' : '',
-        'PASSWORD' : '',
+        'ENGINE' :'django.db.backends.mysql',
+        'HOST' : os.environ.get('MYSQL_HOST','localhost'),
+        'NAME' : 'clone_insta',
+        'USER' : os.environ.get('MYSQL_USER_NAME','user'),
+        'PASSWORD' : os.environ.get('MYSQL_PASSWORD','password'),
         'PORT' : '3306',
         'OPTIONS' : {'charset' : 'utf8mb4'}
     }
