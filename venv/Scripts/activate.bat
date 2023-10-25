@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\레노바\django-practice-insta\venv
+set VIRTUAL_ENV=C:\Users\레노바\Documents\insta_ec2\django-practice-insta\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
