@@ -145,10 +145,10 @@
           </div>
           <div style = "margin-left : 10px; text-align : left">
             <div style = "font-weight : bold">
-              {{user.nickname}}
+              {% get_media_prefix%}{{user.nickname}}
             </div>
             <div style = "color : gray">
-              {{user.name}}
+              {% get_media_prefix%}{{user.name}}
             </div>
           </div>
         </div>
@@ -438,7 +438,7 @@
           },
           complete : function(){
             console.log("완료");
-            location.replace('main');
+            location.replace('/main');
           }
 
         });
