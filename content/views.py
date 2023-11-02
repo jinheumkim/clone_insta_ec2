@@ -12,13 +12,8 @@ from insta.settings import MEDIA_ROOT
 class Main(APIView):
     def get(self, request):
         email = request.session.get('email',None)
+        
         if email is None:
-            return render(request, "user/login.html")
-        
-        user = User.objects.filter(email = email).first()
-        
-        
-        if user is None:
             return render(request, "user/login.html")
         
         feed_object_list = Feed.objects.all().order_by('-id')
@@ -44,8 +39,12 @@ class Main(APIView):
                                   reply_list = reply_list,
                                   is_liked = is_liked,
                                   is_marked = is_marked))
+        user = User.objects.filter(email = email).first()
         
-        return render(request, "insta/main.html",context = dict(feeds = feed_list, user=user))
+        if user is None:
+            return render(request, "user/login.html")
+        
+        return render(request, "insta/main.html",context = dict(user=user, feeds=feed_list))
     
     
     
@@ -78,7 +77,7 @@ class Profile(APIView):
             return render(request, "user/login.html")
         
         user = User.objects.filter(email = email).first()
-        
+
         if user is None:
             return render(request, "user/login.html")
         
@@ -87,7 +86,9 @@ class Profile(APIView):
         like_feed_list = Feed.objects.filter(id__in = like_list)
         bookmark_list = list(Bookmark.objects.filter(email = email, is_marked = True).values_list('feed_id',flat = True))
         bookmark_feed_list = Feed.objects.filter(id__in = bookmark_list)
-        return render(request, "content/profile.html" , context = dict(user = user, 
+        
+        return render(request, "content/profile.html" , context = dict(user=user,
+                                                                       email = email,
                                                                        feed_list = feed_list,
                                                                        like_feed_list = like_feed_list,
                                                                        bookmark_feed_list = bookmark_feed_list
@@ -124,7 +125,9 @@ class ToggleLike(APIView):
             like.is_like = is_like
             like.save()
         else:
-            Like.objects.create(feed_id=feed_id, is_like=is_like, email = email)
+            Like.objects.create(feed_id=feed_id,
+                                is_like=is_like,
+                                email = email)
         
         return Response(status=200)
     
@@ -147,6 +150,8 @@ class ToggleBookmark(APIView):
             bookmark.is_marked = is_marked
             bookmark.save()
         else:
-            Bookmark.objects.create(feed_id=feed_id, is_marked=is_marked, email = email)
+            Bookmark.objects.create(feed_id=feed_id,
+                                    is_marked=is_marked,
+                                    email = email)
         
         return Response(status=200)
