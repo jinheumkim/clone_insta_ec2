@@ -82,10 +82,10 @@ DATABASES = {
     
     'default' : {
         'ENGINE' :'django.db.backends.mysql',
-        'HOST' : '43.201.73.165',
+        'HOST' : os.environ.get('MYSQL_HOST', 'localhost'),
         'NAME' : 'clone_insta',
-        'USER-NAME' : 'root',
-        'PASSWORD' : 'password',
+        'USER' : os.environ.get('MYSQL_USER_NAME','default_user'),
+        'PASSWORD' : os.environ.get('MYSQL_PASSWORD','default_password'),
         'PORT' : '3306',
         'OPTIONS' : {'charset' : 'utf8mb4'}
     }
