@@ -76,4 +76,21 @@ class UploadProfile(APIView):
         user.save()
         
         return Response(status=200)
-    
+
+
+class Search(APIView):
+    def get(self, request):
+        email = request.session.get('email', None)
+        if email is None:
+            return render(request, "user/login.html")
+        
+        user = User.objects.filter(email = email).first()
+        
+        query = request.GET.get('q', '')
+        results = User.objects.filter(name__icontains=query)
+        
+        if user is None:
+            return render(request, "user/login.html")
+        return render(request, "user/search.html", context = dict(user = user,
+                                                                  query = query,
+                                                                  results=results))
